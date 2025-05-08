@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Server Error (500){% endblock %}
+{% block content %}
+    <div class="content-section text-center">
+        <h1 class="text-danger"><i class="fas fa-bomb"></i> Something went wrong (500)</h1>
+        <p class="lead">An internal server error occurred.</p>
+        <hr>
+        <a href="{{ url_for('main.courses_view') }}" class="btn btn-primary mt-3"><i class="fas fa-home"></i> To Main Page</a>
+    </div>
+{% endblock content %}

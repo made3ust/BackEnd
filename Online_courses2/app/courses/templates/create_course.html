@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+             <div class="card-header">{{ legend }}</div>
+             <div class="card-body">
+                 <form method="POST" enctype="multipart/form-data" action="" novalidate>
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <div class="form-group mb-3">
+                            {{ form.title.label(class="form-control-label") }}
+                            {% if form.title.errors %}
+                                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.title.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.title(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.description.label(class="form-control-label") }}
+                            {% if form.description.errors %}
+                                {{ form.description(class="form-control form-control-lg is-invalid", rows=5) }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.description.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.description(class="form-control form-control-lg", rows=5) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.instructor.label(class="form-control-label") }}
+                            {% if form.instructor.errors %}
+                                {{ form.instructor(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.instructor.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.instructor(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                         <hr>
+                         <div class="form-group mb-3">
+                            {{ form.image.label(class="form-control-label") }}<br>
+                            {{ form.image(class="form-control-file") }}
+                            {% if image_url %}
+                                <div class="mt-2">
+                                    <small class="form-text text-muted d-block mb-1">Current Image:</small>
+                                    <img src="{{ url_for('courses.uploaded_file', type='images', filename=course.image_filename) }}" alt="Current Course Image" class="img-thumbnail mt-1" style="max-width: 150px;">
+                                </div>
+                            {% endif %}
+                            {% if form.image.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.image.errors %}<small>{{ error }}</small><br>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.material.label(class="form-control-label") }}<br>
+                            {{ form.material(class="form-control-file") }}
+                             {% if course and course.material_filename %}
+                                <div class="mt-2">
+                                    <small class="form-text text-muted d-block mb-1">Current Material:</small>
+                                    <a href="{{ url_for('courses.uploaded_file', type='materials', filename=course.material_filename) }}" target="_blank">{{ course.material_filename }}</a>
+                                </div>
+                             {% endif %}
+                            {% if form.material.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.material.errors %}<small>{{ error }}</small><br>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    <div class="form-group mt-4">
+                        {{ form.submit(class="btn btn-primary") }}
+                         <a href="{{ url_for('main.courses_view') }}" class="btn btn-outline-secondary ml-2">Cancel</a>
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

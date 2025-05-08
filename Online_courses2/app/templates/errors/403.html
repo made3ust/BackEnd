@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Access Forbidden (403){% endblock %}
+{% block content %}
+    <div class="content-section text-center">
+        <h1 class="text-danger"><i class="fas fa-ban"></i> Access Forbidden (403)</h1>
+        <p class="lead">You do not have permission to access this page.</p>
+        <hr>
+        <a href="{{ url_for('main.courses_view') }}" class="btn btn-primary mt-3"><i class="fas fa-home"></i> To Main Page</a>
+    </div>
+{% endblock content %}
